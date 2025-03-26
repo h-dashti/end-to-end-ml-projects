@@ -18,7 +18,6 @@ if __name__ == '__main__':
         'IsAlone', 'TicketPrefix', 'IsSharedTicket'
     ]
 
-     # Define the parameter distributions for RandomizedSearchCV
     param_grid = {
         'n_estimators': [50, 100, 150, 200, 300],                # Default: 100
         'max_depth': [3, 5, 6, 7, 9],                            # Default: 6
@@ -31,11 +30,10 @@ if __name__ == '__main__':
         'min_child_weight': [1, 3, 5, 7, 10],                    # Default: 1
         'scale_pos_weight': [1, 2, 5]                            # Default: 1 (important if dataset is imbalanced)
     }
-
     
 
     # Define the model
-    xgb_clf = XGBClassifier(eval_metric='logloss', random_state=42,
+    clf = XGBClassifier(eval_metric='logloss', random_state=42,
                             # use_label_encoder=False, 
                             )
 
@@ -44,7 +42,7 @@ if __name__ == '__main__':
 
     features_pipeline, gs = utils.run_gridsearch(
         df, numeric_features, categorical_features,
-        xgb_clf,
+        clf,
         param_grid,  
         f'{odir}/best_xgb_serach_model.pkl'
         )

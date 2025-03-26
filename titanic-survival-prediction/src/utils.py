@@ -56,7 +56,7 @@ def run_gridsearch(
     )
 
     # Fit
-    print("Running randomized search...")
+    print("Running grid search...")
     gs.fit(X, y)
 
     best_model = gs.best_estimator_
