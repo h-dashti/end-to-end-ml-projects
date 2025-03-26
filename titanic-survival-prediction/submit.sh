@@ -11,4 +11,4 @@ module load Python
 source ~/.venvs/env_ml/bin/activate
 
 
-python run_xgb_gridsearch.py
+python xgb_gridsearch.py
