@@ -35,13 +35,14 @@ if __name__ == '__main__':
                             # use_label_encoder=False, 
                             )
 
-    os.makedirs('model', exist_ok=True)
+    odir = 'models'
+    os.makedirs(odir, exist_ok=True)
 
     features_pipeline, gs = utils.run_gridsearch(
         df, numeric_features, categorical_features,
         xgb_clf,
         param_distributions,  
-        'model/best_xgb_serach_model.pkl'
+        f'{odir}/best_xgb_serach_model.pkl'
         )
 
 
