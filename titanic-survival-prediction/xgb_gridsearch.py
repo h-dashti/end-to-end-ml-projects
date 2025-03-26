@@ -19,13 +19,17 @@ if __name__ == '__main__':
     ]
 
      # Define the parameter distributions for RandomizedSearchCV
-    param_distributions = {
-        'n_estimators': [50, 100, 200, 300, 500],
-        'max_depth': [2, 3, 5, 7, 10],
-        'learning_rate': [0.01, 0.05, 0.1, 0.2, 0.3],
-        'subsample': [0.5, 0.7, 0.8, 1.0],
-        'colsample_bytree': [0.5, 0.7, 0.8, 1.0],
-        'gamma': [0, 1, 5, 10]
+    param_grid = {
+        'n_estimators': [50, 100, 150, 200, 300],                # Default: 100
+        'max_depth': [3, 5, 6, 7, 9],                            # Default: 6
+        'learning_rate': [0.01, 0.05, 0.1, 0.2, 0.3],            # Default: 0.3
+        'subsample': [0.6, 0.7, 0.8, 0.9, 1.0],                  # Default: 1.0
+        'colsample_bytree': [0.6, 0.7, 0.8, 0.9, 1.0],           # Default: 1.0
+        'gamma': [0, 0.1, 0.5, 1, 5],                            # Default: 0
+        'reg_alpha': [0, 0.01, 0.1, 0.5, 1],                     # Default: 0
+        'reg_lambda': [0.5, 1, 1.5, 2, 5],                       # Default: 1
+        'min_child_weight': [1, 3, 5, 7, 10],                    # Default: 1
+        'scale_pos_weight': [1, 2, 5]                            # Default: 1 (important if dataset is imbalanced)
     }
 
     
@@ -41,7 +45,7 @@ if __name__ == '__main__':
     features_pipeline, gs = utils.run_gridsearch(
         df, numeric_features, categorical_features,
         xgb_clf,
-        param_distributions,  
+        param_grid,  
         f'{odir}/best_xgb_serach_model.pkl'
         )
 
