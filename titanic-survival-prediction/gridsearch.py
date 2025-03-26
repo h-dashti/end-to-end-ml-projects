@@ -1,6 +1,6 @@
 
 import pandas as pd
-import numpy as np
+import os
 import joblib
 from sklearn.model_selection import RandomizedSearchCV, GridSearchCV
 from sklearn.metrics import confusion_matrix, classification_report
@@ -83,12 +83,13 @@ if __name__ == '__main__':
                             # use_label_encoder=False, 
                             )
 
+    os.makedirs('model', exist_ok=True)
 
     features_pipeline, gs = run_gridsearch(
         df, numeric_features, categorical_features,
         xgb_clf,
         param_distributions,  
-        'best_xgb_serach_model.pkl'
+        'model/best_xgb_serach_model.pkl'
         )
 
 
