@@ -19,14 +19,14 @@ if __name__ == '__main__':
     ]
 
     param_grid = {
-        'n_estimators': [50, 100, 150, 200, 300],                # Default: 100
+        'n_estimators': [50, 100, 300],                # Default: 100
         'max_depth': [3, 5, 6, 7, 9],                            # Default: 6
-        'learning_rate': [0.01, 0.05, 0.1, 0.2, 0.3],            # Default: 0.3
-        'subsample': [0.6, 0.7, 0.8, 0.9, 1.0],                  # Default: 1.0
-        'colsample_bytree': [0.6, 0.7, 0.8, 0.9, 1.0],           # Default: 1.0
+        'learning_rate': [0.01, 0.1, 0.2, 0.3],            # Default: 0.3
+        'subsample': [0.6, 0.8, 1.0],                  # Default: 1.0
+        'colsample_bytree': [0.6, 0.8, 1.0],           # Default: 1.0
         'gamma': [0, 0.1, 0.5, 1, 5],                            # Default: 0
         'reg_alpha': [0, 0.01, 0.1, 0.5, 1],                     # Default: 0
-        'reg_lambda': [0.5, 1, 1.5, 2, 5],                       # Default: 1
+        'reg_lambda': [0.5, 1, 1.5, 5],                       # Default: 1
         'min_child_weight': [1, 3, 5, 7, 10],                    # Default: 1
         'scale_pos_weight': [1, 2, 5]                            # Default: 1 (important if dataset is imbalanced)
     }
