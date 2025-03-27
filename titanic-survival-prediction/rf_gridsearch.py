@@ -2,9 +2,11 @@
 import pandas as pd
 import os
 from sklearn.ensemble import RandomForestClassifier
+import joblib
 
 from src import utils
 
+empty_praram_grid = True
 
 
 if __name__ == '__main__':
@@ -28,20 +30,28 @@ if __name__ == '__main__':
         'criterion': ['gini', 'entropy', 'log_loss'],      # Default: 'gini' (log_loss from sklearn 1.1+)
     }
 
+    if empty_praram_grid:
+        param_grid = {}
+
 
 
     # Define the model
     clf = RandomForestClassifier(random_state=42)
+    features_pipeline, gs = utils.run_gridsearch(
+        df, numeric_features, categorical_features, clf,param_grid,  )
+    
 
+    # PRINT the results
+    print("Best Parameters:")
+    print(gs.best_params_)
+    print(f"Best Accuracy: {gs.best_score_:.4f}")
+
+    # SAVE the model
     odir = 'models'
     os.makedirs(odir, exist_ok=True)
-
-    features_pipeline, gs = utils.run_gridsearch(
-        df, numeric_features, categorical_features,
-        clf,
-        param_grid,  
-        f'{odir}/best_rf_serach_model.pkl'
-        )
+    outfilename = f'{odir}/best_rf_serach_model.joblib'
+    joblib.dump(gs.best_estimator_, outfilename)
+    print(f"Model saved as {outfilename}")
 
 
     

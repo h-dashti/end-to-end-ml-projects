@@ -2,9 +2,11 @@
 import pandas as pd
 import os
 from xgboost import XGBClassifier
+import joblib
 
 from src import utils
 
+empty_praram_grid = True
 
 
 if __name__ == '__main__':
@@ -30,23 +32,33 @@ if __name__ == '__main__':
         'min_child_weight': [1, 3, 5, 7, 10],                    # Default: 1
         'scale_pos_weight': [1, 2, 5]                            # Default: 1 (important if dataset is imbalanced)
     }
+
+    if empty_praram_grid:
+        param_grid = {}
+
     
 
-    # Define the model
-    clf = XGBClassifier(eval_metric='logloss', random_state=42,
-                            # use_label_encoder=False, 
-                            )
-
-    odir = 'models'
-    os.makedirs(odir, exist_ok=True)
-
+    # DEFINE the model
+    clf = XGBClassifier(eval_metric='logloss', random_state=42,)
     features_pipeline, gs = utils.run_gridsearch(
-        df, numeric_features, categorical_features,
-        clf,
-        param_grid,  
-        f'{odir}/best_xgb_serach_model.pkl'
-        )
+        df, numeric_features, categorical_features, clf,param_grid,  )
 
 
+    # PRINT the results
+    print("Best Parameters:")
+    print(gs.best_params_)
+    print(f"Best Accuracy: {gs.best_score_:.4f}")
+
+    # SAVE the model
+    odir = 'models/'+ utils.get_current_datatime()
+    fname = "best_xgb_serach_model"
+    os.makedirs(odir, exist_ok=True)
+    outfilename = f'{odir}/{fname}.joblib'
+    joblib.dump(gs.best_estimator_, outfilename)
+    print(f"Model saved as {outfilename}")
+
+    fname = "pipeline_" + fname
+    outfilename = f'{odir}/{fname}.joblib'
+    joblib.dump(features_pipeline, outfilename)
     
 

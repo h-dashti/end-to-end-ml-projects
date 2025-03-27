@@ -2,8 +2,7 @@ from sklearn.model_selection import learning_curve
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import confusion_matrix, classification_report
-import joblib
+from datetime import datetime
 
 from . import preprocessing
 
@@ -37,7 +36,7 @@ def run_gridsearch(
         categorical_features,
         clf,
         param_grid,
-        outfilename):
+        ):
     
     # Build preprocessing pipeline
     features_pipeline = preprocessing.get_features_pipeline(numeric_features, categorical_features)
@@ -51,7 +50,7 @@ def run_gridsearch(
         param_grid=param_grid,
         scoring='accuracy',
         cv=5,
-        verbose=1,
+        verbose=2,
         n_jobs=-1,
     )
 
@@ -59,17 +58,8 @@ def run_gridsearch(
     print("Running grid search...")
     gs.fit(X, y)
 
-    best_model = gs.best_estimator_
-    y_pred = best_model.predict(X)
-    
-    print("Best Parameters:")
-    print(gs.best_params_)
-    print(f"Best Accuracy: {gs.best_score_:.4f}")
-    print("Confusion Matrix:\n", confusion_matrix(y, y_pred))
-    print("Classification Report:\n", classification_report(y, y_pred))
-
-    # Save the model
-    joblib.dump(best_model, outfilename)
-    print(f"Model saved as {outfilename}")
-
     return features_pipeline, gs
+
+def get_current_datatime() -> str:
+    timestamp = datetime.now().strftime("%Y%m%d_%H-%M-%S")
+    return timestamp
