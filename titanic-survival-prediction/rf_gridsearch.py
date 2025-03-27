@@ -47,11 +47,18 @@ if __name__ == '__main__':
     print(f"Best Accuracy: {gs.best_score_:.4f}")
 
     # SAVE the model
-    odir = 'models'
+    odir = 'models/'+ utils.get_current_datatime()
+    fname = "best_xgb_serach_model"
     os.makedirs(odir, exist_ok=True)
-    outfilename = f'{odir}/best_rf_serach_model.joblib'
+    outfilename = f'{odir}/{fname}.joblib'
     joblib.dump(gs.best_estimator_, outfilename)
     print(f"Model saved as {outfilename}")
+
+    fname = "pipeline_" + fname
+    outfilename = f'{odir}/{fname}.joblib'
+    joblib.dump(features_pipeline, outfilename)
+    print(f"Pipeline saved as {outfilename}")
+    
 
 
     

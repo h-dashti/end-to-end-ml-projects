@@ -60,5 +60,6 @@ if __name__ == '__main__':
     fname = "pipeline_" + fname
     outfilename = f'{odir}/{fname}.joblib'
     joblib.dump(features_pipeline, outfilename)
+    print(f"Pipeline saved as {outfilename}")
     
 
