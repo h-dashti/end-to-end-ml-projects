@@ -6,7 +6,7 @@ import joblib
 
 from src import utils
 
-empty_praram_grid = True
+empty_praram_grid = False
 
 
 if __name__ == '__main__':

@@ -12,4 +12,4 @@ module load Python
 source ~/.venvs/env_ml/bin/activate
 
 
-python xgb_gridsearch.py
+python rf_gridsearch.py

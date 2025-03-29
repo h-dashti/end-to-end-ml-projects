@@ -6,7 +6,7 @@ import joblib
 
 from src import utils
 
-empty_praram_grid = True
+empty_praram_grid = False
 
 
 if __name__ == '__main__':
@@ -21,11 +21,11 @@ if __name__ == '__main__':
     ]
 
     param_grid = {
-        'n_estimators': [100, 200, 300, 500],              # Default: 100
+        'n_estimators': [30, 50, 100, 200,],              # Default: 100
         'max_depth': [None, 5, 10, 15, 20],                # Default: None (nodes expanded until all leaves are pure)
-        'min_samples_split': [2, 5, 10],                   # Default: 2
+        'min_samples_split': [2, 5, 8],                   # Default: 2
         'min_samples_leaf': [1, 2, 4],                     # Default: 1
-        'max_features': ['auto', 'sqrt', 'log2'],          # Default: 'auto' (deprecated in newer versions)
+        'max_features': [None, 'sqrt', 'log2'],          # Default: 'None'
         'bootstrap': [True, False],                        # Default: True
         'criterion': ['gini', 'entropy', 'log_loss'],      # Default: 'gini' (log_loss from sklearn 1.1+)
     }
@@ -48,7 +48,7 @@ if __name__ == '__main__':
 
     # SAVE the model
     odir = 'models/'+ utils.get_current_datatime()
-    fname = "best_xgb_serach_model"
+    fname = "best_rf_serach_model"
     os.makedirs(odir, exist_ok=True)
     outfilename = f'{odir}/{fname}.joblib'
     joblib.dump(gs.best_estimator_, outfilename)

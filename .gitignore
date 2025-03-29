@@ -1,3 +1,5 @@
+# slurm
+slurm-*.out
 
 # for tex files
 *.log

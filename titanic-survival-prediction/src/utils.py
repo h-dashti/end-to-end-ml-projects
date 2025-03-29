@@ -50,7 +50,7 @@ def run_gridsearch(
         param_grid=param_grid,
         scoring='accuracy',
         cv=5,
-        verbose=2,
+        verbose=0,
         n_jobs=-1,
     )
 
